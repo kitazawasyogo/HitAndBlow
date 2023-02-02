@@ -71,4 +71,29 @@
 
     End Function
 
+
+    ''' <summary>
+    ''' ブロー数を返す
+    ''' </summary>
+    ''' <param name="inputValue">入力された値</param>
+    ''' <param name="correctValue">正解の値</param>
+    ''' <returns>値が一致している件数</returns>
+    Public Function CountBlowValue(inputValue As Char(), correctValue As Char()) As Integer
+
+        Dim blow As Integer = 0
+
+        For arrayIndex As Integer = 0 To correctValue.Length - 1
+
+            If inputValue.Contains(correctValue(arrayIndex)) Then
+
+                blow += 1
+
+            End If
+
+        Next
+
+        Return blow
+
+    End Function
+
 End Class

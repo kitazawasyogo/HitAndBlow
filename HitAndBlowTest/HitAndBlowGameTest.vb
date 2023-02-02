@@ -44,5 +44,17 @@ Public Class HitAndBlowGameTest
 
     End Sub
 
+    <Test()> Public Sub ブロー数を返すメソッドが正しい値を返すか()
+
+        Dim correct As Char() = {"0", "1", "2", "3"}
+        Dim input As Char() = {"6", "3", "5", "1"}
+
+
+        Dim actual As Integer = gameTest.CountBlowValue(correct, input)
+
+        Assert.That(actual, [Is].EqualTo(2))
+
+    End Sub
+
 End Class
 
