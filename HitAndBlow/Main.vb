@@ -2,18 +2,32 @@
 
     Public Sub Main()
 
-        Console.Write("4桁の数字を入力して下さい：")
-
         Dim game As New HitAndBlowGame
-
-        Dim inputValue As Char() = game.GetInputValue()
         Dim correctValue As Char() = game.MakeCorrectValue()
 
-        Dim hitNumber As Integer = game.CountHitValue(inputValue, correctValue)
-        Dim blowNumber As Integer = game.CountBlowValue(inputValue, correctValue)
+        Const GAME_CLEAR_COUNT As Integer = 4
 
-        Console.WriteLine("ヒット数:" & hitNumber & "ブロー数：" & blowNumber)
+        While True
 
+            Console.Write("4桁の数字を入力して下さい：")
+
+            Dim inputValue As Char() = game.GetInputValue()
+
+            Dim hitNumber As Integer = game.CountHitValue(inputValue, correctValue)
+            Dim blowNumber As Integer = game.CountBlowValue(inputValue, correctValue)
+
+            If hitNumber.Equals(GAME_CLEAR_COUNT) Then
+
+                Console.WriteLine($"ヒット数：{hitNumber}！ゲームクリア！")
+                Exit While
+
+            Else
+
+                Console.WriteLine($"ヒット数:{hitNumber}ブロー数：{blowNumber}")
+
+            End If
+
+        End While
 
         Console.ReadKey()
 
