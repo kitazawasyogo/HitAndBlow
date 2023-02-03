@@ -40,8 +40,10 @@
 
             Dim inputValue As Char() = game.GetInputValue()
 
+            Dim hitOtherList As Char() = game.MakeHitOtherValue(inputValue, correctValue)
+
             Dim hitNumber As Integer = game.CountHitValue(inputValue, correctValue)
-            Dim blowNumber As Integer = game.CountBlowValue(inputValue, correctValue)
+            Dim blowNumber As Integer = game.CountBlowValue(inputValue, hitOtherList)
 
             If hitNumber.Equals(GAME_CLEAR_COUNT) Then
 

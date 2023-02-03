@@ -44,6 +44,18 @@ Public Class HitAndBlowGameTest
 
     End Sub
 
+    <Test()> Public Sub ヒットした値を除外した配列をかえす()
+
+        Dim correct As Char() = {"0", "1", "2", "3"}
+        Dim input As Char() = {"0", "5", "5", "3"}
+
+
+        Dim actual As Char() = gameTest.MakeHitOtherValue(correct, input)
+
+        Assert.That(actual.Length, [Is].EqualTo(2))
+
+    End Sub
+
     <Test()> Public Sub ブロー数を返すメソッドが正しい値を返すか()
 
         Dim correct As Char() = {"0", "1", "2", "3"}

@@ -92,6 +92,30 @@ Public Class HitAndBlowGame
 
 
     ''' <summary>
+    ''' ヒットした値を除外した配列を返す
+    ''' </summary>
+    ''' <param name="inputValue">入力された値</param>
+    ''' <param name="correctValue">正解の値</param>
+    ''' <returns>ヒットした値を除外した配列</returns>
+    Public Function MakeHitOtherValue(inputValue As Char(), correctValue As Char()) As Char()
+
+        Dim hitOtherList As New List(Of Char)
+
+        For arrayIndex As Integer = 0 To ARRAY_LENGTH_COUNT
+
+            If Not inputValue(arrayIndex).Equals(correctValue(arrayIndex)) Then
+                hitOtherList.Add(correctValue(arrayIndex))
+            End If
+        Next
+
+        Dim hitOtherArray As Char() = hitOtherList.ToArray
+
+        Return hitOtherArray
+
+    End Function
+
+
+    ''' <summary>
     ''' ブロー数を返す
     ''' </summary>
     ''' <param name="inputValue">入力された値</param>
