@@ -1,4 +1,6 @@
-﻿Public Class HitAndBlowGame
+﻿Imports System.Text.RegularExpressions
+
+Public Class HitAndBlowGame
 
 
     Private Const ARRAY_LENGTH_COUNT As Integer = 3
@@ -37,13 +39,30 @@
 
 
     ''' <summary>
-    ''' 入力値を配列に変換する
+    ''' 指定した条件を満たすまで入力を求め入力値を配列に変換する
     ''' </summary>
     ''' <returns>入力値の配列</returns>
     Public Function GetInputValue() As Char()
 
-        Dim input As String = Console.ReadLine()
-        Dim inputNumber As Char() = input.ToCharArray
+        Dim inputNumber As Char() = {"0", "0", "0", "0"}
+
+        While True
+
+            Try
+
+                Dim input As String = Console.ReadLine()
+                ValidateInputValue(input)
+
+                inputNumber = input.ToCharArray
+
+                Return inputNumber
+
+            Catch ex As ArgumentException
+                Console.WriteLine(ex.Message)
+                Console.Write("4桁の数字を入力して下さい：")
+            End Try
+
+        End While
 
         Return inputNumber
 
@@ -93,6 +112,25 @@
         Next
 
         Return blow
+
+    End Function
+
+
+    ''' <summary>
+    ''' 入力値チェック
+    ''' </summary>
+    ''' <param name="inputValue">入力値</param>
+    ''' <returns>入力値判定の真偽</returns>
+    Public Function ValidateInputValue(inputValue As String) As Boolean
+
+
+        If Not inputValue.Length.Equals(4) OrElse Not New Regex("^[0-9]{1,4}$").IsMatch(inputValue) Then
+
+            Throw New ArgumentException("入力値が4桁の数字ではありません")
+
+        End If
+
+        Return True
 
     End Function
 

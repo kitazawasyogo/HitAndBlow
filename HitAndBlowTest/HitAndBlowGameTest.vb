@@ -56,5 +56,65 @@ Public Class HitAndBlowGameTest
 
     End Sub
 
+    <Test()> Public Sub 入力値の桁数が範囲外の場合例外を投げる()
+
+        Dim inputTestValue As String = "123456789"
+
+        Try
+
+            gameTest.ValidateInputValue(inputTestValue)
+            Assert.Fail()
+
+        Catch ex As ArgumentException
+            Assert.That(ex.Message, [Is].EqualTo("入力値が4桁の数字ではありません"))
+        End Try
+
+    End Sub
+
+    <Test()> Public Sub 入力値が数字でない場合例外を投げる()
+
+        Dim inputTestValue As String = "あいうえ"
+
+        Try
+
+            gameTest.ValidateInputValue(inputTestValue)
+            Assert.Fail()
+
+        Catch ex As ArgumentException
+            Assert.That(ex.Message, [Is].EqualTo("入力値が4桁の数字ではありません"))
+        End Try
+
+    End Sub
+
+    <Test()> Public Sub 入力値に小数点が含まれる場合例外を投げる()
+
+        Dim inputTestValue As String = "1.45"
+
+        Try
+
+            gameTest.ValidateInputValue(inputTestValue)
+            Assert.Fail()
+
+        Catch ex As ArgumentException
+            Assert.That(ex.Message, [Is].EqualTo("入力値が4桁の数字ではありません"))
+        End Try
+
+    End Sub
+
+    <Test()> Public Sub 入力値に負符号が含まれる場合例外を投げる()
+
+        Dim inputTestValue As String = "-123"
+
+        Try
+
+            gameTest.ValidateInputValue(inputTestValue)
+            Assert.Fail()
+
+        Catch ex As ArgumentException
+            Assert.That(ex.Message, [Is].EqualTo("入力値が4桁の数字ではありません"))
+        End Try
+
+    End Sub
+
 End Class
 
