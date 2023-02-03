@@ -2,6 +2,33 @@
 
     Public Sub Main()
 
+        Console.WriteLine("HitAndBlowゲームを開始します。")
+
+        While True
+
+            DisplayHitAndBlowGame()
+            Console.Write("もう一度遊びますか？(Y/N)")
+
+            Dim input As String = Console.ReadLine()
+
+            If input.Equals("N") Then
+
+                Exit While
+
+            End If
+
+        End While
+
+        Console.ReadKey()
+
+    End Sub
+
+
+    ''' <summary>
+    ''' ゲームの結果表示
+    ''' </summary>
+    Private Sub DisplayHitAndBlowGame()
+
         Dim game As New HitAndBlowGame
         Dim correctValue As Char() = game.MakeCorrectValue()
 
@@ -28,8 +55,6 @@
             End If
 
         End While
-
-        Console.ReadKey()
 
     End Sub
 
