@@ -33,4 +33,18 @@
     End Function
 
 
+    ''' <summary>
+    ''' 入力値を配列に変換する
+    ''' </summary>
+    ''' <returns>入力値の配列</returns>
+    Public Function GetInputValue() As Char()
+
+        Dim input As String = Console.ReadLine()
+        Dim inputNumber As Char() = input.ToCharArray
+
+        Return inputNumber
+
+    End Function
+
+
 End Class
