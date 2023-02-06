@@ -1,6 +1,9 @@
 ﻿Public Class HitAndBlowGame
 
 
+    Private Const ARRAY_LENGTH_COUNT As Integer = 3
+
+
     ''' <summary>
     ''' 正解の4桁の数字を生成して返す
     ''' </summary>
@@ -46,5 +49,26 @@
 
     End Function
 
+
+    ''' <summary>
+    ''' ヒット数を返す
+    ''' </summary>
+    ''' <param name="inputValue">入力された値</param>
+    ''' <param name="correctValue">正解の値</param>
+    ''' <returns>桁と値が一致している件数</returns>
+    Public Function CountHitValue(inputValue As Char(), correctValue As Char()) As Integer
+
+        Dim hit As Integer = 0
+
+        For count As Integer = 0 To ARRAY_LENGTH_COUNT
+
+            If inputValue(count).Equals(correctValue(count)) Then
+                hit += 1
+            End If
+        Next
+
+        Return hit
+
+    End Function
 
 End Class
