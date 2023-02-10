@@ -7,15 +7,14 @@
         While True
 
             DisplayHitAndBlowGame()
-            Console.Write("もう一度遊びますか？(Y/N)")
 
-            Dim input As String = Console.ReadLine()
+            Dim inputValue As String = IsJudgementReplayAnswer()
 
-            If input.Equals("Y") Then
+            If inputValue = True Then
 
                 Continue While
 
-            ElseIf input.Equals("N") Then
+            ElseIf inputValue = False Then
 
                 Exit Sub
 
@@ -26,6 +25,40 @@
         Console.ReadKey()
 
     End Sub
+
+
+    ''' <summary>
+    ''' もう一度ゲームを遊ぶか聞き入力値を返す
+    ''' </summary>
+    ''' <returns>もう一度ゲームを遊ぶか辞めるかの入力値</returns>
+    Private Function IsJudgementReplayAnswer() As Boolean
+
+        While True
+
+            Console.Write("もう一度遊びますか？(Y/N)：")
+
+            Dim inputAnswer As String = Console.ReadLine()
+
+            If inputAnswer.Equals("Y") Then
+
+                Return True
+
+            ElseIf inputAnswer.Equals("N") Then
+
+                Return False
+
+            Else
+
+                Console.WriteLine("入力内容が異なります。")
+
+            End If
+
+
+        End While
+
+        Throw New InvalidOperationException
+
+    End Function
 
 
     ''' <summary>
@@ -61,5 +94,6 @@
         End While
 
     End Sub
+
 
 End Module
