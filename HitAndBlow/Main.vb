@@ -36,9 +36,7 @@
 
         While True
 
-            Console.Write("4桁の数字を入力して下さい：")
-
-            Dim inputValue As Char() = game.GetInputValue()
+            Dim inputValue As Char() = game.GetInputValue(correctValue)
 
             Dim hitOtherList As Char() = game.MakeHitOtherValue(inputValue, correctValue)
 

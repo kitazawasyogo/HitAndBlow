@@ -39,10 +39,10 @@ Public Class HitAndBlowGame
 
 
     ''' <summary>
-    ''' 指定した条件を満たすまで入力を求め入力値を配列に変換する
+    ''' 指定した条件を満たすまで入力を求める
     ''' </summary>
     ''' <returns>入力値の配列</returns>
-    Public Function GetInputValue() As Char()
+    Public Function GetInputValue(correctArray As Char()) As Char()
 
         Dim inputNumber As Char() = {"0", "0", "0", "0"}
 
@@ -50,8 +50,20 @@ Public Class HitAndBlowGame
 
             Try
 
+                Console.Write("4桁の数字を入力して下さい：")
+
                 Dim input As String = Console.ReadLine()
-                ValidateInputValue(input)
+
+                If input.Equals("ShowAnswer") Then
+
+                    ShowAnswer(correctArray)
+                    Continue While
+
+                Else
+
+                    ValidateInputValue(input)
+
+                End If
 
                 inputNumber = input.ToCharArray
 
@@ -59,7 +71,6 @@ Public Class HitAndBlowGame
 
             Catch ex As ArgumentException
                 Console.WriteLine(ex.Message)
-                Console.Write("4桁の数字を入力して下さい：")
             End Try
 
         End While
@@ -67,6 +78,18 @@ Public Class HitAndBlowGame
         Return inputNumber
 
     End Function
+
+
+    ''' <summary>
+    ''' 答えを表示
+    ''' </summary>
+    Private Sub ShowAnswer(correct As Char())
+
+        Dim displayAnswer As String = String.Join(",", correct)
+
+        Console.WriteLine(displayAnswer)
+
+    End Sub
 
 
     ''' <summary>
