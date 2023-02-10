@@ -11,9 +11,13 @@
 
             Dim input As String = Console.ReadLine()
 
-            If input.Equals("N") Then
+            If input.Equals("Y") Then
 
-                Exit While
+                Continue While
+
+            ElseIf input.Equals("N") Then
+
+                Exit Sub
 
             End If
 
@@ -36,9 +40,7 @@
 
         While True
 
-            Console.Write("4桁の数字を入力して下さい：")
-
-            Dim inputValue As Char() = game.GetInputValue()
+            Dim inputValue As Char() = game.GetInputValue(correctValue)
 
             Dim hitOtherList As Char() = game.MakeHitOtherValue(inputValue, correctValue)
 
