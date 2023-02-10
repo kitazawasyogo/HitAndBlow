@@ -11,9 +11,13 @@
 
             Dim input As String = Console.ReadLine()
 
-            If input.Equals("N") Then
+            If input.Equals("Y") Then
 
-                Exit While
+                Continue While
+
+            ElseIf input.Equals("N") Then
+
+                Exit Sub
 
             End If
 
