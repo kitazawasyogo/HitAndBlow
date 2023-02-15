@@ -22,7 +22,6 @@
 
         End While
 
-        Console.ReadKey()
 
     End Sub
 
