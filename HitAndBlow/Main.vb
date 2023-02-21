@@ -85,9 +85,12 @@
             Dim hitNumber As Integer = game.CountHitValue(inputValue, correctValue)
             Dim blowNumber As Integer = game.CountBlowValue(inputValue, hitOtherList)
 
+            Dim inputNumberOfTimes As Integer = game.CountInputNumber
+
             If hitNumber.Equals(GAME_CLEAR_COUNT) Then
 
                 Console.WriteLine($"ヒット数：{hitNumber}！ゲームクリア！")
+                Console.WriteLine($"ゲームクリアまでは{inputNumberOfTimes}手かかりました。")
                 Exit While
 
             Else
