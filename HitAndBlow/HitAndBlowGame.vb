@@ -6,6 +6,22 @@ Public Class HitAndBlowGame
     Private Const ARRAY_LENGTH_COUNT As Integer = 3
 
 
+    Private isExitHitAndBlow As Boolean = False
+
+
+    ''' <summary>
+    ''' 一ゲームを終了するか判断する
+    ''' </summary>
+    ''' <returns>一ゲームを終了するか判断する値</returns>
+    Public ReadOnly Property IsExitGame() As Boolean
+
+        Get
+            Return isExitHitAndBlow
+        End Get
+
+    End Property
+
+
     ''' <summary>
     ''' 正解の4桁の数字を生成して返す
     ''' </summary>
@@ -54,10 +70,21 @@ Public Class HitAndBlowGame
 
                 Dim input As String = Console.ReadLine()
 
+                Dim isExit As Boolean = False
+
+                isExit = IsGiveupHitAndBlowGame(input)
+
                 If input.Equals("ShowAnswer") Then
 
                     ShowAnswer(correctArray)
                     Continue While
+
+                ElseIf isExit = True Then
+
+                    Console.Write("正解の4桁の数字はこちらでした：")
+                    ShowAnswer(correctArray)
+                    isExitHitAndBlow = True
+                    Exit While
 
                 Else
 
@@ -76,6 +103,17 @@ Public Class HitAndBlowGame
         End While
 
         Return inputNumber
+
+    End Function
+
+    ''' <summary>
+    ''' 入力値がギブアップであるか判定し返す
+    ''' </summary>
+    ''' <param name="inputValue"></param>
+    ''' <returns>入力値がギブアップであるか</returns>
+    Public Function IsGiveupHitAndBlowGame(inputValue As String) As Boolean
+
+        Return inputValue.ToLower().Equals("giveup")
 
     End Function
 

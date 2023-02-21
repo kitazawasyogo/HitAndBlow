@@ -74,6 +74,12 @@
 
             Dim inputValue As Char() = game.GetInputValue(correctValue)
 
+            If game.IsExitGame() Then
+
+                Exit Sub
+
+            End If
+
             Dim hitOtherList As Char() = game.MakeHitOtherValue(inputValue, correctValue)
 
             Dim hitNumber As Integer = game.CountHitValue(inputValue, correctValue)

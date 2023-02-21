@@ -128,5 +128,45 @@ Public Class HitAndBlowGameTest
 
     End Sub
 
+    <Test()> Public Sub ギブアップの入力値が文字列一致で全て大文字だった場合Trueを返す()
+
+        Dim inputTestValue As String = "GIVEUP"
+
+        Dim actual As Boolean = gameTest.IsGiveupHitAndBlowGame(inputTestValue)
+
+        Assert.That(actual, [Is].EqualTo(True))
+
+    End Sub
+
+    <Test()> Public Sub ギブアップの入力値が文字列一致で全て小文字だった場合Trueを返す()
+
+        Dim inputTestValue As String = "giveup"
+
+        Dim actual As Boolean = gameTest.IsGiveupHitAndBlowGame(inputTestValue)
+
+        Assert.That(actual, [Is].EqualTo(True))
+
+    End Sub
+
+    <Test()> Public Sub ギブアップの入力値が文字列一致で小文字大文字混在だった場合Trueを返す()
+
+        Dim inputTestValue As String = "GiVeUp"
+
+        Dim actual As Boolean = gameTest.IsGiveupHitAndBlowGame(inputTestValue)
+
+        Assert.That(actual, [Is].EqualTo(True))
+
+    End Sub
+
+    <Test()> Public Sub ギブアップの入力値が文字列不一致だった場合Falseを返す()
+
+        Dim inputTestValue As String = "Gibeuo"
+
+        Dim actual As Boolean = gameTest.IsGiveupHitAndBlowGame(inputTestValue)
+
+        Assert.That(actual, [Is].EqualTo(False))
+
+    End Sub
+
 End Class
 
