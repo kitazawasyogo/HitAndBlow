@@ -23,6 +23,13 @@ Public Class HitAndBlowGame
 
 
     ''' <summary>
+    ''' 何手かかったか数える
+    ''' </summary>
+    ''' <returns>何手かかったか数えた値</returns>
+    Public ReadOnly Property CountInputNumber As Integer = 0
+
+
+    ''' <summary>
     ''' 正解の4桁の数字を生成して返す
     ''' </summary>
     ''' <returns>正解の4桁の数字</returns>
@@ -91,6 +98,8 @@ Public Class HitAndBlowGame
                     ValidateInputValue(input)
 
                 End If
+
+                _CountInputNumber += 1
 
                 inputNumber = input.ToCharArray
 
