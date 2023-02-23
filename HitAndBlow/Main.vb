@@ -38,11 +38,11 @@
 
             Dim inputAnswer As String = Console.ReadLine()
 
-            If inputAnswer.Equals("Y") Then
+            If inputAnswer.ToUpper().Equals("Y") Then
 
                 Return True
 
-            ElseIf inputAnswer.Equals("N") Then
+            ElseIf inputAnswer.ToUpper().Equals("N") Then
 
                 Return False
 
