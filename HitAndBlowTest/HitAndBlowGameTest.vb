@@ -1,56 +1,64 @@
 ﻿Imports HitAndBlow
 Imports NUnit.Framework
 
+
 Public Class HitAndBlowGameTest
 
     Private gameTest As New HitAndBlowGame
 
-    <Test()> Public Sub 正解の値の桁数()
+    <TestCase("4")>
+    <TestCase("8")>
+    Public Sub 正解の値の桁数が入力された挑戦桁数になっているか(inputDigitsValue As String)
 
-        Dim actual As Char() = gameTest.MakeCorrectValue()
+        Dim actual As Char() = gameTest.MakeCorrectValue(inputDigitsValue)
 
-        Assert.That(actual.Count, [Is].EqualTo(4))
+        Dim inputDigitsValueTest As Integer = Integer.Parse(inputDigitsValue)
+
+        Assert.That(actual.Count, [Is].EqualTo(inputDigitsValueTest))
 
     End Sub
 
-    <Test()> Public Sub 正解の値が数字であるか()
+    <TestCase("4")>
+    <TestCase("7")>
+    Public Sub 正解の値が数字であるか(inputDigitsValue As String)
 
-        Dim actual As Char() = gameTest.MakeCorrectValue()
+        Dim actual As Char() = gameTest.MakeCorrectValue(inputDigitsValue)
 
         Assert.IsTrue(IsNumeric(String.Join(",", actual)))
 
     End Sub
 
-    <Test()> Public Sub 正解の値に重複がないか()
+    <TestCase("4")>
+    <TestCase("7")>
+    Public Sub 正解の値に重複がないか(inputDigitsValue As String)
 
-        Dim actualArray As Char() = gameTest.MakeCorrectValue()
+        Dim actualArray As Char() = gameTest.MakeCorrectValue(inputDigitsValue)
 
         Dim actualList As IEnumerable(Of Char) = actualArray.Distinct()
         Dim actual As List(Of Char) = actualList.ToList()
 
-        Assert.That(actual.Count, [Is].EqualTo(4))
+        Dim inputDigitsValueTest As Integer = Integer.Parse(inputDigitsValue)
+
+        Assert.That(actual.Count, [Is].EqualTo(inputDigitsValueTest))
 
     End Sub
 
-    <Test()> Public Sub ヒット数を返すメソッドが正しい値を返すか()
+    <TestCase({"0"c, "1"c, "2"c, "3"c}, {"0"c, "1"c, "5"c, "3"c}, "4")>
+    <TestCase({"0"c, "1"c, "2"c, "3"c, "6"c}, {"0"c, "1"c, "5"c, "3"c, "9"c}, "5")>
+    Public Sub ヒット数を返すメソッドが正しい値を返すか(correct As Char(), input As Char(), inputDigitsValue As String)
 
-        Dim correct As Char() = {"0", "1", "2", "3"}
-        Dim input As Char() = {"0", "1", "5", "3"}
-
-
-        Dim actual As Integer = gameTest.CountHitValue(correct, input)
+        Dim actual As Integer = gameTest.CountHitValue(correct, input, inputDigitsValue)
 
         Assert.That(actual, [Is].EqualTo(3))
 
     End Sub
 
-    <Test()> Public Sub ヒットした値を除外した配列をかえす()
+    <TestCase({"0"c, "1"c, "2"c, "3"c}, {"0"c, "5"c, "5"c, "3"c}, "4")>
+    <TestCase({"0"c, "1"c, "2"c, "3"c, "6"c}, {"0"c, "1"c, "5"c, "3"c, "9"c}, "5")>
+    Public Sub ヒットした値を除外した配列をかえす(correct As Char(), input As Char(), inputDigitsValue As String)
 
-        Dim correct As Char() = {"0", "1", "2", "3"}
-        Dim input As Char() = {"0", "5", "5", "3"}
 
-
-        Dim actual As Char() = gameTest.MakeHitOtherValue(correct, input)
+        Dim actual As Char() = gameTest.MakeHitOtherValue(correct, input, inputDigitsValue)
 
         Assert.That(actual.Length, [Is].EqualTo(2))
 
@@ -65,66 +73,6 @@ Public Class HitAndBlowGameTest
         Dim actual As Integer = gameTest.CountBlowValue(correct, input)
 
         Assert.That(actual, [Is].EqualTo(2))
-
-    End Sub
-
-    <Test()> Public Sub 入力値の桁数が範囲外の場合例外を投げる()
-
-        Dim inputTestValue As String = "123456789"
-
-        Try
-
-            gameTest.ValidateInputValue(inputTestValue)
-            Assert.Fail()
-
-        Catch ex As ArgumentException
-            Assert.That(ex.Message, [Is].EqualTo("入力値が4桁の数字ではありません"))
-        End Try
-
-    End Sub
-
-    <Test()> Public Sub 入力値が数字でない場合例外を投げる()
-
-        Dim inputTestValue As String = "あいうえ"
-
-        Try
-
-            gameTest.ValidateInputValue(inputTestValue)
-            Assert.Fail()
-
-        Catch ex As ArgumentException
-            Assert.That(ex.Message, [Is].EqualTo("入力値が4桁の数字ではありません"))
-        End Try
-
-    End Sub
-
-    <Test()> Public Sub 入力値に小数点が含まれる場合例外を投げる()
-
-        Dim inputTestValue As String = "1.45"
-
-        Try
-
-            gameTest.ValidateInputValue(inputTestValue)
-            Assert.Fail()
-
-        Catch ex As ArgumentException
-            Assert.That(ex.Message, [Is].EqualTo("入力値が4桁の数字ではありません"))
-        End Try
-
-    End Sub
-
-    <Test()> Public Sub 入力値に負符号が含まれる場合例外を投げる()
-
-        Dim inputTestValue As String = "-123"
-
-        Try
-
-            gameTest.ValidateInputValue(inputTestValue)
-            Assert.Fail()
-
-        Catch ex As ArgumentException
-            Assert.That(ex.Message, [Is].EqualTo("入力値が4桁の数字ではありません"))
-        End Try
 
     End Sub
 
