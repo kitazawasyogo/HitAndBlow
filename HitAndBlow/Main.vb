@@ -7,13 +7,15 @@ Module Main
 
     Public Sub Main()
 
+        Dim game As New HitAndBlowGame
+
         Console.WriteLine("HitAndBlowゲームを開始します。")
 
         challengeDigitsNumber = AskChallengeDigits()
 
         While True
 
-            DisplayHitAndBlowGame(challengeDigitsNumber)
+            game.DisplayHitAndBlowGame(challengeDigitsNumber)
 
             Dim isJudgementinputValue As Boolean = IsJudgementReplayAnswer()
 
@@ -136,51 +138,5 @@ Module Main
         Throw New InvalidOperationException
 
     End Function
-
-
-    ''' <summary>
-    ''' ゲームの結果表示
-    ''' </summary>
-    ''' <param name="challengeDigitsValue">挑戦桁数</param>
-    Private Sub DisplayHitAndBlowGame(challengeDigitsValue As String)
-
-        Dim game As New HitAndBlowGame
-        Dim correctValue As Char() = game.MakeCorrectValue(challengeDigitsValue)
-
-        While True
-
-            Dim inputValue As Char() = game.GetInputValue(correctValue, challengeDigitsValue)
-
-            If game.IsExitGame() Then
-
-                Exit Sub
-
-            End If
-
-            Dim hitOtherList As Char() = game.MakeHitOtherValue(inputValue, correctValue, challengeDigitsValue)
-
-            Dim hitNumber As Integer = game.CountHitValue(inputValue, correctValue, challengeDigitsValue)
-            Dim blowNumber As Integer = game.CountBlowValue(inputValue, hitOtherList)
-
-            Dim inputNumberOfTimes As Integer = game.CountInputNumber
-
-            Dim displayHitNumber As Integer = Integer.Parse(challengeDigitsValue)
-
-            If hitNumber.Equals(displayHitNumber) Then
-
-                Console.WriteLine($"ヒット数：{challengeDigitsValue}！ゲームクリア！")
-                Console.WriteLine($"ゲームクリアまでは{inputNumberOfTimes}手かかりました。")
-                Exit While
-
-            Else
-
-                Console.WriteLine($"ヒット数:{hitNumber}ブロー数：{blowNumber}")
-
-            End If
-
-        End While
-
-    End Sub
-
 
 End Module

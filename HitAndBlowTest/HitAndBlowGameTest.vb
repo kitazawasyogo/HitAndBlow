@@ -116,5 +116,26 @@ Public Class HitAndBlowGameTest
 
     End Sub
 
+    <Test()> Public Sub クリアタイム一分以上掛からない場合は分を省略して表示する()
+
+        Dim elapsedTime As TimeSpan = TimeSpan.FromMilliseconds(12 * 1000 + 345)
+
+        Dim actual As String = gameTest.MakeClearTimeWords(elapsedTime)
+
+        Assert.That(actual, [Is].EqualTo("12.345秒かかりました。"))
+
+    End Sub
+
+    <Test()> Public Sub クリアタイム一分以上掛かる場合は分も表示する()
+
+        Dim elapsedTime As TimeSpan = TimeSpan.FromMilliseconds(90 * 1000 + 123)
+
+        Dim actual As String = gameTest.MakeClearTimeWords(elapsedTime)
+
+
+        Assert.That(actual, [Is].EqualTo("01分30.123秒かかりました。"))
+
+    End Sub
+
 End Class
 
