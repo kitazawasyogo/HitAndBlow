@@ -5,6 +5,13 @@
 ''' </summary>
 Public Class HitAndBlowGame
 
+
+    ''' <summary>
+    ''' ゲームクリアまでにかかった時間を計測する
+    ''' </summary>
+    Private ReadOnly clearTime As New System.Diagnostics.Stopwatch()
+
+
     Private isExitHitAndBlow As Boolean = False
 
 
@@ -135,6 +142,76 @@ Public Class HitAndBlowGame
 
     End Function
 
+
+
+    ''' <summary>
+    ''' ゲームの結果表示
+    ''' </summary>
+    ''' <param name="challengeDigitsValue">挑戦桁数</param>
+    Public Sub DisplayHitAndBlowGame(challengeDigitsValue As String)
+
+        Dim correctValue As Char() = MakeCorrectValue(challengeDigitsValue)
+
+        clearTime.Restart()
+
+        While True
+
+            Dim inputValue As Char() = GetInputValue(correctValue, challengeDigitsValue)
+
+            If IsExitGame() Then
+
+                Exit Sub
+
+            End If
+
+            Dim hitOtherList As Char() = MakeHitOtherValue(inputValue, correctValue, challengeDigitsValue)
+
+            Dim hitNumber As Integer = CountHitValue(inputValue, correctValue, challengeDigitsValue)
+            Dim blowNumber As Integer = CountBlowValue(inputValue, hitOtherList)
+
+            Dim displayHitNumber As Integer = Integer.Parse(challengeDigitsValue)
+
+            Dim elapsedTime As TimeSpan = clearTime.Elapsed
+
+            If hitNumber.Equals(displayHitNumber) Then
+
+                clearTime.Stop()
+
+                Console.WriteLine($"ヒット数：{challengeDigitsValue}！ゲームクリア！")
+                Console.Write($"ゲームクリアまでは{CountInputNumber:00}手、")
+                Console.WriteLine(MakeClearTimeWords(elapsedTime))
+
+                Exit While
+
+            Else
+
+                Console.WriteLine($"ヒット数:{hitNumber}ブロー数：{blowNumber}")
+
+            End If
+
+        End While
+
+    End Sub
+
+
+    ''' <summary>
+    ''' ゲームクリアまでにかかった時間の表示する文言を作る
+    ''' </summary>
+    ''' <param name="elapsedTime"></param>
+    ''' <returns>ゲームクリアまでにかかった時間の表示する文言</returns>
+    Public Function MakeClearTimeWords(elapsedTime As TimeSpan) As String
+
+        Dim displayMinutes As String = Nothing
+
+        If elapsedTime.Minutes <> 0 Then
+
+            displayMinutes = $"{elapsedTime.Minutes:00}分"
+
+        End If
+
+        Return $"{displayMinutes}{elapsedTime.Seconds:00}.{elapsedTime.Milliseconds:000}秒かかりました。"
+
+    End Function
 
     ''' <summary>
     ''' 答えを表示
